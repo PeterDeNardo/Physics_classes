@@ -8,8 +8,8 @@ sun = sphere(radius = 9, pos = vector(100, 0, 3.4),
              texture=textures.flower)
 l2 = local_light(pos = moon.pos, color = moon.color)
 
-sunDeath = False
-growing = True
+state01 = False
+state02 = True
 
 while True:
     rate(100)
@@ -23,14 +23,20 @@ while True:
         a2 += 0.055
         earth.pos.x += 0000000000.1
 
-    elif (growing):
+    elif (state02):
         sun.radius += 0.01
 
-    if  (sun.radius >= 40) or sunDeath and (not sun.radius <= 4) and not growing :
-        sunDeath = True
-        growing = False
+    if  ((sun.radius >= 10) and not state01 )or (state01 and not state02) :
+        state01 = True
+        state02 = False
         sun.radius -= 0.02
 
-    if  (sunDeath) and sun.radius == sun.radius <= 4:
+        if sun.radius <= 4:
+            state02 = True
+
+    if  state01 and state02:
         sun.color = color.yellow
-        sun.radius += 0.1
+        sun.radius += 0.4
+
+
+
